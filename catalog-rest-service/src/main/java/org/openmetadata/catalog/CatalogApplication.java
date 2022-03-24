@@ -65,7 +65,7 @@ import org.openmetadata.catalog.security.NoopFilter;
 import org.openmetadata.catalog.slack.SlackPublisherConfiguration;
 import org.openmetadata.catalog.slack.SlackWebhookEventPublisher;
 
-/** Main catalog application */
+/** OpenMetadata Application Server */
 @Slf4j
 public class CatalogApplication extends Application<CatalogApplicationConfig> {
   private Authorizer authorizer;
@@ -126,6 +126,8 @@ public class CatalogApplication extends Application<CatalogApplicationConfig> {
     EventPubSub.start();
     // Register Event publishers
     registerEventPublisher(catalogConfig);
+    // Register Metric Publishers
+    registerMetricPublisher(catalogConfig, environment);
   }
 
   @SneakyThrows
@@ -235,6 +237,8 @@ public class CatalogApplication extends Application<CatalogApplicationConfig> {
     eph.addErrorPage(Response.Status.NOT_FOUND.getStatusCode(), "/");
     environment.getApplicationContext().setErrorHandler(eph);
   }
+
+  private void registerMetricPublisher(CatalogApplicationConfig config, Environment environment) {}
 
   public static void main(String[] args) throws Exception {
     CatalogApplication catalogApplication = new CatalogApplication();
