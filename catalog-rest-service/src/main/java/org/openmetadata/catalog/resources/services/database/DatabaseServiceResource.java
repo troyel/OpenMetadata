@@ -15,6 +15,9 @@ package org.openmetadata.catalog.resources.services.database;
 
 import static org.openmetadata.catalog.fernet.Fernet.isTokenized;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -103,6 +106,9 @@ public class DatabaseServiceResource extends EntityResource<DatabaseService, Dat
     }
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Operation(
       summary = "List database services",
@@ -154,6 +160,9 @@ public class DatabaseServiceResource extends EntityResource<DatabaseService, Dat
     return addHref(uriInfo, decryptOrNullify(securityContext, dbServices));
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}")
   @Operation(
@@ -188,6 +197,9 @@ public class DatabaseServiceResource extends EntityResource<DatabaseService, Dat
     return decryptOrNullify(securityContext, service);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/name/{name}")
   @Operation(
@@ -222,6 +234,9 @@ public class DatabaseServiceResource extends EntityResource<DatabaseService, Dat
     return decryptOrNullify(securityContext, service);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions")
   @Operation(
@@ -256,6 +271,9 @@ public class DatabaseServiceResource extends EntityResource<DatabaseService, Dat
     return entityHistory;
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions/{version}")
   @Operation(
@@ -309,6 +327,9 @@ public class DatabaseServiceResource extends EntityResource<DatabaseService, Dat
     return Response.created(service.getHref()).entity(service).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Operation(
       summary = "Update a database service",
@@ -334,6 +355,9 @@ public class DatabaseServiceResource extends EntityResource<DatabaseService, Dat
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @DELETE
   @Path("/{id}")
   @Operation(

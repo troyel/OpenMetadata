@@ -15,6 +15,9 @@ package org.openmetadata.catalog.resources.policies;
 
 import static org.openmetadata.catalog.Entity.FIELD_OWNER;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -112,6 +115,9 @@ public class PolicyResource extends EntityResource<Policy, PolicyRepository> {
   public static final String FIELDS = "owner,location";
   public static final List<String> ALLOWED_FIELDS = Entity.getEntityFields(Policy.class);
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Operation(
@@ -159,6 +165,9 @@ public class PolicyResource extends EntityResource<Policy, PolicyRepository> {
     return super.listInternal(uriInfo, securityContext, fieldsParam, filter, limitParam, before, after);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}")
   @Operation(
@@ -191,6 +200,9 @@ public class PolicyResource extends EntityResource<Policy, PolicyRepository> {
     return getInternal(uriInfo, securityContext, id, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/name/{fqn}")
   @Operation(
@@ -223,6 +235,9 @@ public class PolicyResource extends EntityResource<Policy, PolicyRepository> {
     return getByNameInternal(uriInfo, securityContext, fqn, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions")
   @Operation(
@@ -243,6 +258,9 @@ public class PolicyResource extends EntityResource<Policy, PolicyRepository> {
     return dao.listVersions(id);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions/{version}")
   @Operation(
@@ -271,6 +289,9 @@ public class PolicyResource extends EntityResource<Policy, PolicyRepository> {
     return dao.getVersion(id, version);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Operation(
       summary = "Create a policy",
@@ -291,6 +312,9 @@ public class PolicyResource extends EntityResource<Policy, PolicyRepository> {
     return Response.created(policy.getHref()).entity(policy).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PATCH
   @Path("/{id}")
   @Operation(
@@ -323,6 +347,9 @@ public class PolicyResource extends EntityResource<Policy, PolicyRepository> {
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Operation(
       summary = "Create or update a policy",
@@ -345,6 +372,9 @@ public class PolicyResource extends EntityResource<Policy, PolicyRepository> {
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @DELETE
   @Path("/{id}")
   @Operation(

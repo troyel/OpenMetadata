@@ -13,6 +13,9 @@
 
 package org.openmetadata.catalog.resources.pipelines;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -102,6 +105,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
   static final String FIELDS = "owner,tasks,pipelineStatus,followers,tags";
   public static final List<String> ALLOWED_FIELDS = Entity.getEntityFields(Pipeline.class);
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Operation(
@@ -154,6 +160,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
     return super.listInternal(uriInfo, securityContext, fieldsParam, filter, limitParam, before, after);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions")
   @Operation(
@@ -174,6 +183,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
     return dao.listVersions(id);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}")
   @Operation(
@@ -206,6 +218,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
     return getInternal(uriInfo, securityContext, id, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/name/{fqn}")
   @Operation(
@@ -238,6 +253,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
     return getByNameInternal(uriInfo, securityContext, fqn, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions/{version}")
   @Operation(
@@ -266,6 +284,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
     return dao.getVersion(id, version);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Operation(
       summary = "Create a pipeline",
@@ -288,6 +309,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
     return Response.created(pipeline.getHref()).entity(pipeline).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PATCH
   @Path("/{id}")
   @Operation(
@@ -325,6 +349,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Operation(
       summary = "Create or update a pipeline",
@@ -348,6 +375,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Path("/{id}/status")
   @Operation(
@@ -372,6 +402,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
     return addHref(uriInfo, pipeline);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Path("/{id}/followers")
   @Operation(
@@ -393,6 +426,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
         .toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @DELETE
   @Path("/{id}/followers/{userId}")
   @Operation(
@@ -412,6 +448,9 @@ public class PipelineResource extends EntityResource<Pipeline, PipelineRepositor
         .toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @DELETE
   @Path("/{id}")
   @Operation(

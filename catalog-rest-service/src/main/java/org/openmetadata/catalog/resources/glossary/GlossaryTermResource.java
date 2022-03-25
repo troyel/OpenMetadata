@@ -13,6 +13,9 @@
 
 package org.openmetadata.catalog.resources.glossary;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
+import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
@@ -108,6 +111,9 @@ public class GlossaryTermResource extends EntityResource<GlossaryTerm, GlossaryT
   static final String FIELDS = "children,relatedTerms,reviewers,tags,usageCount";
   public static final List<String> ALLOWED_FIELDS = Entity.getEntityFields(GlossaryTerm.class);
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Operation(
@@ -198,6 +204,9 @@ public class GlossaryTermResource extends EntityResource<GlossaryTerm, GlossaryT
     return addHref(uriInfo, terms);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}")
   @Operation(
@@ -230,6 +239,9 @@ public class GlossaryTermResource extends EntityResource<GlossaryTerm, GlossaryT
     return getInternal(uriInfo, securityContext, id, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/name/{name}")
   @Operation(
@@ -262,6 +274,9 @@ public class GlossaryTermResource extends EntityResource<GlossaryTerm, GlossaryT
     return getByNameInternal(uriInfo, securityContext, name, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions")
   @Operation(
@@ -282,6 +297,9 @@ public class GlossaryTermResource extends EntityResource<GlossaryTerm, GlossaryT
     return dao.listVersions(id);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions/{version}")
   @Operation(
@@ -310,6 +328,9 @@ public class GlossaryTermResource extends EntityResource<GlossaryTerm, GlossaryT
     return dao.getVersion(id, version);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Operation(
       summary = "Create a glossary",
@@ -331,6 +352,9 @@ public class GlossaryTermResource extends EntityResource<GlossaryTerm, GlossaryT
     return Response.created(term.getHref()).entity(term).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PATCH
   @Path("/{id}")
   @Operation(
@@ -367,6 +391,9 @@ public class GlossaryTermResource extends EntityResource<GlossaryTerm, GlossaryT
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Operation(
       summary = "Create or update a glossary",
@@ -390,6 +417,9 @@ public class GlossaryTermResource extends EntityResource<GlossaryTerm, GlossaryT
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @DELETE
   @Path("/{id}")
   @Operation(

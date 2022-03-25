@@ -15,6 +15,9 @@ package org.openmetadata.catalog.resources.tags;
 
 import static org.openmetadata.common.utils.CommonUtil.listOrEmpty;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -120,6 +123,9 @@ public class TagResource {
   static final String FIELDS = "usageCount";
   protected static final List<String> ALLOWED_FIELDS = Entity.getEntityFields(Tag.class);
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Operation(
       summary = "List tag categories",
@@ -146,6 +152,9 @@ public class TagResource {
     return new CategoryList(list);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("{category}")
   @Operation(
@@ -176,6 +185,9 @@ public class TagResource {
     return addHref(uriInfo, dao.getCategory(category, fields));
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Operation(
       summary = "Get a primary tag",
@@ -217,6 +229,9 @@ public class TagResource {
     return addHref(categoryHref, tag);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("{category}/{primaryTag}/{secondaryTag}")
   @Operation(
@@ -264,6 +279,9 @@ public class TagResource {
     return addHref(categoryHref, tag);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Operation(
       summary = "Create a tag category",
@@ -294,6 +312,9 @@ public class TagResource {
     return Response.created(category.getHref()).entity(category).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Path("{category}")
   @Operation(
@@ -327,6 +348,9 @@ public class TagResource {
     return Response.created(tag.getHref()).entity(tag).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Path("{category}/{primaryTag}")
   @Operation(
@@ -369,6 +393,9 @@ public class TagResource {
     return Response.created(tag.getHref()).entity(tag).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Path("{category}")
   @Operation(
@@ -393,6 +420,9 @@ public class TagResource {
     return Response.ok(category).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Path("{category}/{primaryTag}")
   @Operation(
@@ -425,6 +455,9 @@ public class TagResource {
     return Response.ok(tag).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Path("{category}/{primaryTag}/{secondaryTag}")
   @Operation(

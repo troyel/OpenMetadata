@@ -16,6 +16,9 @@ package org.openmetadata.catalog.resources.operations;
 import static org.openmetadata.catalog.Entity.FIELD_OWNER;
 import static org.openmetadata.common.utils.CommonUtil.listOrEmpty;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -121,6 +124,9 @@ public class AirflowPipelineResource extends EntityResource<AirflowPipeline, Air
     ALLOWED_FIELDS = Collections.unmodifiableList(list);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Operation(
@@ -179,6 +185,9 @@ public class AirflowPipelineResource extends EntityResource<AirflowPipeline, Air
     return airflowPipelines;
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions")
   @Operation(
@@ -199,6 +208,9 @@ public class AirflowPipelineResource extends EntityResource<AirflowPipeline, Air
     return dao.listVersions(id);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}")
   @Operation(
@@ -236,6 +248,9 @@ public class AirflowPipelineResource extends EntityResource<AirflowPipeline, Air
     return airflowPipeline;
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions/{version}")
   @Operation(
@@ -265,6 +280,9 @@ public class AirflowPipelineResource extends EntityResource<AirflowPipeline, Air
     return dao.getVersion(id, version);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/name/{fqn}")
   @Operation(
@@ -302,6 +320,9 @@ public class AirflowPipelineResource extends EntityResource<AirflowPipeline, Air
     return airflowPipeline;
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Operation(
       summary = "Create a Airflow Pipeline",
@@ -327,6 +348,9 @@ public class AirflowPipelineResource extends EntityResource<AirflowPipeline, Air
     return Response.created(airflowPipeline.getHref()).entity(airflowPipeline).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PATCH
   @Path("/{id}")
   @Operation(
@@ -364,6 +388,9 @@ public class AirflowPipelineResource extends EntityResource<AirflowPipeline, Air
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Operation(
       summary = "Create or update a AirflowPipeline",
@@ -388,6 +415,9 @@ public class AirflowPipelineResource extends EntityResource<AirflowPipeline, Air
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Path("/trigger/{id}")
   @Operation(
@@ -411,6 +441,9 @@ public class AirflowPipelineResource extends EntityResource<AirflowPipeline, Air
     return addHref(uriInfo, dao.get(uriInfo, id, fields));
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @DELETE
   @Path("/{id}")
   @Operation(

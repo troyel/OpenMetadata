@@ -13,6 +13,9 @@
 
 package org.openmetadata.catalog.resources.metrics;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -79,6 +82,9 @@ public class MetricsResource extends EntityResource<Metrics, MetricsRepository> 
   static final String FIELDS = "owner,usageSummary";
   public static final List<String> ALLOWED_FIELDS = Entity.getEntityFields(Metrics.class);
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Operation(
       summary = "List metrics",
@@ -110,6 +116,9 @@ public class MetricsResource extends EntityResource<Metrics, MetricsRepository> 
     return super.listInternal(uriInfo, securityContext, fieldsParam, filter, limitParam, before, after);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}")
   @Operation(
@@ -142,6 +151,9 @@ public class MetricsResource extends EntityResource<Metrics, MetricsRepository> 
     return getInternal(uriInfo, securityContext, id, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Operation(
       summary = "Create a metric",
@@ -161,6 +173,9 @@ public class MetricsResource extends EntityResource<Metrics, MetricsRepository> 
     return Response.created(metrics.getHref()).entity(metrics).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Operation(
       summary = "Create or update a metric",

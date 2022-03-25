@@ -13,6 +13,9 @@
 
 package org.openmetadata.catalog.resources.teams;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
+import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.jersey.PATCH;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
@@ -103,6 +106,9 @@ public class UserResource extends EntityResource<User, UserRepository> {
   static final String FIELDS = "profile,roles,teams,follows,owns";
   public static final List<String> ALLOWED_FIELDS = Entity.getEntityFields(User.class);
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Operation(
@@ -153,6 +159,9 @@ public class UserResource extends EntityResource<User, UserRepository> {
     return super.listInternal(uriInfo, securityContext, fieldsParam, filter, limitParam, before, after);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions")
   @Operation(
@@ -173,6 +182,9 @@ public class UserResource extends EntityResource<User, UserRepository> {
     return dao.listVersions(id);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Path("/{id}")
@@ -206,6 +218,9 @@ public class UserResource extends EntityResource<User, UserRepository> {
     return getInternal(uriInfo, securityContext, id, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Path("/name/{name}")
@@ -239,6 +254,9 @@ public class UserResource extends EntityResource<User, UserRepository> {
     return getByNameInternal(uriInfo, securityContext, name, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Path("/loggedInUser")
@@ -268,6 +286,9 @@ public class UserResource extends EntityResource<User, UserRepository> {
     return addHref(uriInfo, user);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions/{version}")
   @Operation(
@@ -296,6 +317,9 @@ public class UserResource extends EntityResource<User, UserRepository> {
     return dao.getVersion(id, version);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Operation(
       summary = "Create a user",
@@ -319,6 +343,9 @@ public class UserResource extends EntityResource<User, UserRepository> {
     return Response.created(user.getHref()).entity(user).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Operation(
       summary = "Create or Update a user",
@@ -345,6 +372,9 @@ public class UserResource extends EntityResource<User, UserRepository> {
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PATCH
   @Path("/{id}")
   @Consumes(MediaType.APPLICATION_JSON_PATCH_JSON)
@@ -385,6 +415,9 @@ public class UserResource extends EntityResource<User, UserRepository> {
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @DELETE
   @Path("/{id}")
   @Operation(

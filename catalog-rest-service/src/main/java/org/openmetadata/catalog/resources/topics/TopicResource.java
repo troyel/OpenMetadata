@@ -15,6 +15,9 @@ package org.openmetadata.catalog.resources.topics;
 
 import static org.openmetadata.catalog.Entity.FIELD_OWNER;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
+import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
@@ -103,6 +106,9 @@ public class TopicResource extends EntityResource<Topic, TopicRepository> {
   static final String FIELDS = "owner,followers,tags";
   public static final List<String> ALLOWED_FIELDS = Entity.getEntityFields(Topic.class);
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Operation(
       summary = "List topics",
@@ -154,6 +160,9 @@ public class TopicResource extends EntityResource<Topic, TopicRepository> {
     return super.listInternal(uriInfo, null, fieldsParam, filter, limitParam, before, after);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions")
   @Operation(
@@ -174,6 +183,9 @@ public class TopicResource extends EntityResource<Topic, TopicRepository> {
     return dao.listVersions(id);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}")
   @Operation(
@@ -206,6 +218,9 @@ public class TopicResource extends EntityResource<Topic, TopicRepository> {
     return getInternal(uriInfo, securityContext, id, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/name/{fqn}")
   @Operation(
@@ -238,6 +253,9 @@ public class TopicResource extends EntityResource<Topic, TopicRepository> {
     return getByNameInternal(uriInfo, securityContext, fqn, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions/{version}")
   @Operation(
@@ -266,6 +284,9 @@ public class TopicResource extends EntityResource<Topic, TopicRepository> {
     return dao.getVersion(id, version);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Operation(
       summary = "Create a topic",
@@ -287,6 +308,9 @@ public class TopicResource extends EntityResource<Topic, TopicRepository> {
     return Response.created(topic.getHref()).entity(topic).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PATCH
   @Path("/{id}")
   @Operation(
@@ -324,6 +348,9 @@ public class TopicResource extends EntityResource<Topic, TopicRepository> {
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Operation(
       summary = "Create or update topic",
@@ -345,6 +372,9 @@ public class TopicResource extends EntityResource<Topic, TopicRepository> {
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Path("/{id}/followers")
   @Operation(
@@ -366,6 +396,9 @@ public class TopicResource extends EntityResource<Topic, TopicRepository> {
         .toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @DELETE
   @Path("/{id}/followers/{userId}")
   @Operation(
@@ -385,6 +418,9 @@ public class TopicResource extends EntityResource<Topic, TopicRepository> {
         .toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @DELETE
   @Path("/{id}")
   @Operation(

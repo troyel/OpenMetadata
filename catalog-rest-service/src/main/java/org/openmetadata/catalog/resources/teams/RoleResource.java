@@ -13,6 +13,9 @@
 
 package org.openmetadata.catalog.resources.teams;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
+import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.jersey.PATCH;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
@@ -103,6 +106,9 @@ public class RoleResource extends EntityResource<Role, RoleRepository> {
   public static final String FIELDS = "policy,teams,users";
   public static final List<String> ALLOWED_FIELDS = Entity.getEntityFields(Role.class);
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Operation(
@@ -163,6 +169,9 @@ public class RoleResource extends EntityResource<Role, RoleRepository> {
     return addHref(uriInfo, roles);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions")
   @Operation(
@@ -183,6 +192,9 @@ public class RoleResource extends EntityResource<Role, RoleRepository> {
     return dao.listVersions(id);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Path("/{id}")
@@ -217,6 +229,9 @@ public class RoleResource extends EntityResource<Role, RoleRepository> {
     return addHref(uriInfo, dao.get(uriInfo, id, fields, include));
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Path("/name/{name}")
@@ -250,6 +265,9 @@ public class RoleResource extends EntityResource<Role, RoleRepository> {
     return getByNameInternal(uriInfo, securityContext, name, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions/{version}")
   @Operation(
@@ -278,6 +296,9 @@ public class RoleResource extends EntityResource<Role, RoleRepository> {
     return dao.getVersion(id, version);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Operation(
       summary = "Create a role",
@@ -299,6 +320,9 @@ public class RoleResource extends EntityResource<Role, RoleRepository> {
     return Response.created(role.getHref()).entity(role).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Operation(
       summary = "Create or Update a role",
@@ -321,6 +345,9 @@ public class RoleResource extends EntityResource<Role, RoleRepository> {
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PATCH
   @Path("/{id}")
   @Consumes(MediaType.APPLICATION_JSON_PATCH_JSON)
@@ -350,6 +377,9 @@ public class RoleResource extends EntityResource<Role, RoleRepository> {
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @DELETE
   @Path("/{id}")
   @Operation(

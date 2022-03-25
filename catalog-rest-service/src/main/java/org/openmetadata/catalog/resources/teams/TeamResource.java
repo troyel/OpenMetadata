@@ -13,6 +13,9 @@
 
 package org.openmetadata.catalog.resources.teams;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
+import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.jersey.PATCH;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
@@ -98,6 +101,9 @@ public class TeamResource extends EntityResource<Team, TeamRepository> {
   static final String FIELDS = "owner,profile,users,owns,defaultRoles";
   public static final List<String> ALLOWED_FIELDS = Entity.getEntityFields(Team.class);
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Operation(
@@ -145,6 +151,9 @@ public class TeamResource extends EntityResource<Team, TeamRepository> {
     return super.listInternal(uriInfo, securityContext, fieldsParam, filter, limitParam, before, after);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions")
   @Operation(
@@ -165,6 +174,9 @@ public class TeamResource extends EntityResource<Team, TeamRepository> {
     return dao.listVersions(id);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Path("/{id}")
@@ -198,6 +210,9 @@ public class TeamResource extends EntityResource<Team, TeamRepository> {
     return getInternal(uriInfo, securityContext, id, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Valid
   @Path("/name/{name}")
@@ -231,6 +246,9 @@ public class TeamResource extends EntityResource<Team, TeamRepository> {
     return getByNameInternal(uriInfo, securityContext, name, fieldsParam, include);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @GET
   @Path("/{id}/versions/{version}")
   @Operation(
@@ -259,6 +277,9 @@ public class TeamResource extends EntityResource<Team, TeamRepository> {
     return dao.getVersion(id, version);
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @POST
   @Operation(
       summary = "Create a team",
@@ -279,6 +300,9 @@ public class TeamResource extends EntityResource<Team, TeamRepository> {
     return Response.created(team.getHref()).entity(team).build();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PUT
   @Operation(
       summary = "Create or Update a team",
@@ -301,6 +325,9 @@ public class TeamResource extends EntityResource<Team, TeamRepository> {
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @PATCH
   @Path("/{id}")
   @Consumes(MediaType.APPLICATION_JSON_PATCH_JSON)
@@ -337,6 +364,9 @@ public class TeamResource extends EntityResource<Team, TeamRepository> {
     return response.toResponse();
   }
 
+  @Timed
+  @ResponseMetered
+  @ExceptionMetered
   @DELETE
   @Path("/{id}")
   @Operation(
